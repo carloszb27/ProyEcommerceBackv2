@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: ProyectoEcommercev2
+#  jackson:
+#    default-property-inclusion: non_null
+#    property-naming-strategy: SNAKE_CASE
+  profiles:
+    active: dev
+
+  #Agrega colores al la consola
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 8083
+  servlet:
+    context-path: /api/v2
+
+
+client:
+  url: ${CLIENT_URL}
+
+application:
+  security:
+    jwt:
+      secret-key: ${SECRET_KEY}
+      expiration: 900000 # 15 min
