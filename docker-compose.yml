@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  spring-api-image:
+    image: proyectoecommercev2
+    container_name: proyectoecommercev2-container
+    ports:
+      - "8083:8083"
+    networks:
+      - spring-network
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres
+    container_name: postgres_database
+    environment:
+      POSTGRES_USER: ${DCKR_DB_USER}
+      POSTGRES_PASSWORD: ${DCKR_DB_PWD}
+      POSTGRES_DB: DBEcommercev2
+
+    ports:
+      - "5433:5432" #Externo:Interno
+    networks:
+      - spring-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--save", "''", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+
+volumes:
+  postgres-data:
+  redis_data:

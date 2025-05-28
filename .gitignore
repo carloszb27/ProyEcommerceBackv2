@@ -5,12 +5,8 @@ target/
 !**/src/test/**/target/
 
 #Environment variables
-.env
-
-#Configuration files
-*.yml
-!application.yml
-!application-template.yml
+.env*
+!.env.template
 
 #Database scripts
 *.sql

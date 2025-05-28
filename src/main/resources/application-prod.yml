@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: ${DATASRC_URL}
-    username: ${DATASRC_USER}
-    password: ${DATASRC_PWD}
+    url: ${DATASRC_URL_PROD}
+    username: ${DATASRC_USER_PROD}
+    password: ${DATASRC_PWD_PROD}
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -19,20 +19,20 @@ spring:
     init:
       platform: postgres
 
-  ############# Redis #############
+############# Redis #############
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
       timeout: 6000
 
-  ############# MongoDB #############
-  #  data:
-  #    mongodb:
-  #      uri: mongodb://localhost:27017/pruebamongo2025
-  #      database: pruebamongo2025
-  #      port: 27017
-  ################################
+############# MongoDB #############
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/pruebamongo2025
+#      database: pruebamongo2025
+#      port: 27017
+################################
 
   mvc:
     pathmatch:
