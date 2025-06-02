@@ -25,11 +25,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody UserCreateDTO request){
+        log.info("POST: register {}", request.firstname());
         return ResponseEntity.ok(authService.register(UserMapper.instancia.userCreateDTOAUser(request)));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody Auth request) throws IOException {
+        log.info("POST: authenticate {}", request.getEmail());
         return ResponseEntity.ok(authService.authenticate(request));
     }
 

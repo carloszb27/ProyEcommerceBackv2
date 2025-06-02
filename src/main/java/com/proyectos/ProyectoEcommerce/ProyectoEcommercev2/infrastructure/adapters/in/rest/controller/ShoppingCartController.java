@@ -26,36 +26,42 @@ public class ShoppingCartController {
 
     @GetMapping("")
     public ResponseEntity<?> listadoShoppingCarts(){
+        log.info("GET: shoppingCart {}");
         List<ShoppingCartDTO> listaDTO = ShoppingCartMapper.instancia.listaShoppingCartAListaShoppingCartDTO(shoppingCartService.listarShoppingCarts());
         return CustomResponseBuilder.getInstance().crearResponse(listaDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listarShoppingCartPorId(@PathVariable Long id){
+        log.info("GET: shoppingCart {}", id);
         ShoppingCartDTO shoppingCartDTO = ShoppingCartMapper.instancia.shoppingCartAShoppingCartDTO(shoppingCartService.listarShoppingCartPorId(id));
         return CustomResponseBuilder.getInstance().crearResponse(shoppingCartDTO);
     }
 
     @GetMapping("/current")
     public ResponseEntity<?> listarShoppingCartCurrentUser(){
+        log.info("GET: shoppingCartByCurrentUser {}");
         ShoppingCartDTO shoppingCartDTO = ShoppingCartMapper.instancia.shoppingCartAShoppingCartDTO(shoppingCartService.listarShoppingCartPorUserActual());
         return CustomResponseBuilder.getInstance().crearResponse(shoppingCartDTO);
     }
 
     @PostMapping("")
     public ResponseEntity<?> registrarShoppingCart(@Valid @RequestBody ShoppingCartCreateDTO shoppingCart){
+        log.info("POST: shoppingCart {}", shoppingCart.carritoItems().get(0).productoId());
         ShoppingCartDTO shoppingCartDTO = ShoppingCartMapper.instancia.shoppingCartAShoppingCartDTO(shoppingCartService.registrarShoppingCart(ShoppingCartMapper.instancia.shoppingCartCreateDTOAShoppingCart(shoppingCart)));
         return CustomResponseBuilder.getInstance().crearResponse(shoppingCartDTO, true, shoppingCartDTO.id());
     }
 
     @PutMapping("")
     public ResponseEntity<?> actualizarShoppingCart(@Valid @RequestBody ShoppingCartUpdateDTO shoppingCart){
+        log.info("PUT: shoppingCart {}", shoppingCart.id());
         ShoppingCartDTO shoppingCartDTO = ShoppingCartMapper.instancia.shoppingCartAShoppingCartDTO(shoppingCartService.actualizarShoppingCart(ShoppingCartMapper.instancia.shoppingCartUpdateDTOAShoppingCart(shoppingCart)));
         return CustomResponseBuilder.getInstance().crearResponse(shoppingCartDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarShoppingCart(@PathVariable Long id){
+        log.info("DELETE: shoppingCart {}", id);
         String mensaje = shoppingCartService.eliminarShoppingCart(id);
         return CustomResponseBuilder.getInstance().crearResponse(mensaje);
     }

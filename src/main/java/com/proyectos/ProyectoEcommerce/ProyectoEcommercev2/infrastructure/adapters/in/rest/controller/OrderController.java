@@ -26,30 +26,35 @@ public class OrderController {
 
     @GetMapping("")
     public ResponseEntity<?> listadoOrders(){
+        log.info("GET: order {}");
         List<OrderDTO> listaDTO = OrderMapper.instancia.listaOrderAListaOrderDTO(orderService.listarOrders());
         return CustomResponseBuilder.getInstance().crearResponse(listaDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listarOrderPorId(@PathVariable Long id){
+        log.info("GET: order {}", id);
         OrderDTO orderDTO = OrderMapper.instancia.orderAOrderDTO(orderService.listarOrderPorId(id));
         return CustomResponseBuilder.getInstance().crearResponse(orderDTO);
     }
 
     @PostMapping("")
     public ResponseEntity<?> registrarOrder(@Valid @RequestBody OrderCreateDTO order){
+        log.info("POST: order {}", order.carritoId());
         OrderDTO orderDTO = OrderMapper.instancia.orderAOrderDTO(orderService.registrarOrder(OrderMapper.instancia.orderCreateDTOAOrder(order)));
         return CustomResponseBuilder.getInstance().crearResponse(orderDTO, true, orderDTO.id());
     }
 
     @PutMapping("")
     public ResponseEntity<?> actualizarOrder(@Valid @RequestBody OrderUpdateDTO order){
+        log.info("PUT: order {}", order.id());
         OrderDTO orderDTO = OrderMapper.instancia.orderAOrderDTO(orderService.actualizarOrder(OrderMapper.instancia.orderUpdateDTOAOrder(order)));
         return CustomResponseBuilder.getInstance().crearResponse(orderDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarOrder(@PathVariable Long id){
+        log.info("DELETE: order {}", id);
         String mensaje = orderService.eliminarOrder(id);
         return CustomResponseBuilder.getInstance().crearResponse(mensaje);
     }

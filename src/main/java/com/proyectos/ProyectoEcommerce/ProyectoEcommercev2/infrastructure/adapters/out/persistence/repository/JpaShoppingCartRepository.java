@@ -21,7 +21,7 @@ public interface JpaShoppingCartRepository extends JpaRepository<ShoppingCartEnt
 
     boolean existsShoppingCartEntityByUserId(Long id);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update ShoppingCartEntity c set c.active =:active where c.id =:id")
     void updateShoppingCartEntitySetActiveForId(@Param("active") boolean active, @Param("id") Long id);

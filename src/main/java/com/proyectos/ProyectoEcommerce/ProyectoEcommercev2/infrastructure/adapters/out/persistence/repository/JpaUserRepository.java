@@ -1,5 +1,6 @@
 package com.proyectos.ProyectoEcommerce.ProyectoEcommercev2.infrastructure.adapters.out.persistence.repository;
 
+import com.proyectos.ProyectoEcommerce.ProyectoEcommercev2.domain.exception.UserException;
 import com.proyectos.ProyectoEcommerce.ProyectoEcommercev2.infrastructure.adapters.out.persistence.entity.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,7 +29,7 @@ public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
 //    @Query("select u from UserDetailEntity ud where ud.user.id = ?1")
 //    UserEntity findByUserDetailId(Long idUserDetail);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update UserEntity u set u.active =:active where u.id =:id")
     void updateUserSetActiveForId(@Param("active") boolean active, @Param("id") Long id);

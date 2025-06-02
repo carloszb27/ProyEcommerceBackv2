@@ -15,7 +15,7 @@ public interface JpaSupplierRepository extends JpaRepository<SupplierEntity, Lon
 
     List<SupplierEntity> findAllByActiveTrue();
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update SupplierEntity c set c.active =:active where c.id =:id")
     void updateSupplierSetActiveForId(@Param("active") boolean active, @Param("id") Long id);

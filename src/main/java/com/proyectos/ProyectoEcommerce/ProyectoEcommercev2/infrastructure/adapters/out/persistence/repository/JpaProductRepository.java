@@ -26,7 +26,7 @@ public interface JpaProductRepository extends JpaRepository<ProductEntity, Long>
     //@Query("select p from ProductEntity p where p.nombre like :nombre% and p.active = true")
     List<ProductEntity> findAllByNombreStartingWithIgnoreCaseAndActiveTrue(Sort sort, String nombre);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("update ProductEntity p set p.active=:active where p.id=:id")
     void updateProductSetActiveForId(@Param("active") boolean active, @Param("id") Long id);

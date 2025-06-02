@@ -27,21 +27,22 @@ public class UserDetailController {
 
     @GetMapping("")
     public ResponseEntity<?> listadoUserDetails(){
+        log.info("GET: userDetails {}");
         List<UserDetailDTO> listaDTO = UserDetailMapper.instancia.listaUserDetailAListaUserDetailDTO(userDetailService.listarUserDetails());
         return CustomResponseBuilder.getInstance().crearResponse(listaDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listarUserDetailPorId(@PathVariable Long id){
+        log.info("GET: userDetails {}", id);
         UserDetail userDetail = userDetailService.listarUserDetailPorId(id);
-
         UserDetailDTO userDetailDTO = UserDetailMapper.instancia.userDetailAUserDetailDTO(userDetail);
         return CustomResponseBuilder.getInstance().crearResponse(userDetailDTO);
     }
 
     @PostMapping("")
     public ResponseEntity<?> registrarUserDetail(@Valid @RequestBody UserDetailCreateDTO userDetail) {
-
+        log.info("POST: userDetails {}", userDetail.dni());
         UserDetail userDetail1 = UserDetailMapper.instancia.userDetailCreateDTOAUserDetail(userDetail);
 
         UserDetail userDetail2 = userDetailService.registrarUserDetail(userDetail1);
@@ -53,7 +54,8 @@ public class UserDetailController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarUserDetail(@PathVariable Long id,
-                                               @Valid @RequestBody UserDetailUpdateDTO userDetail){
+                                                  @Valid @RequestBody UserDetailUpdateDTO userDetail){
+        log.info("PUT: userDetails {}", id);
         UserDetailDTO userDetailDTO = UserDetailMapper.instancia.userDetailAUserDetailDTO(userDetailService.actualizarUserDetail(id, UserDetailMapper.instancia.userDetailUpdateDTOAUserDetail(userDetail)));
         return CustomResponseBuilder.getInstance().crearResponse(userDetailDTO);
     }

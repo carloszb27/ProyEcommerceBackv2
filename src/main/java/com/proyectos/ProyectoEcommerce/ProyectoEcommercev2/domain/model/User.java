@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Data
-//@Builder
+@Builder
 public class User implements Serializable {
 
     private Long id;

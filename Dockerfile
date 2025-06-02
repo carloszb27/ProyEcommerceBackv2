@@ -21,7 +21,7 @@ COPY ./src /app/src
 
 #Construir nuestra aplicacion
 
-RUN ./mvnw clean install -DskipTests
+RUN ./mvnw clean install
 
 #Levantar nuestra aplicacion cuando el contenedor inicie
 

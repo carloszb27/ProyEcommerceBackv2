@@ -24,6 +24,7 @@ public class BatchController {
 
     @GetMapping("")
     public ResponseEntity<?> listadoBatchs(){
+        log.info("GET: batch {}");
         List<Batch> lista = batchRepository.findAll();
         return new ResponseEntity<>(lista, lista.size()>0 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }

@@ -35,7 +35,6 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<?> listadoUsers(){
         log.info("GET: user {}");
-
         List<UserDTO> listaDTO = UserMapper.instancia.listaUserAListaUserDTO(userService.listarUsers());
         return CustomResponseBuilder.getInstance().crearResponse(listaDTO);
     }
@@ -45,7 +44,6 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<?> listarUserPorId(@PathVariable Long id){
         log.info("GET: user {}", id);
-
         User user = userService.listarUserPorId(id);
         UserDTO userDTO = UserMapper.instancia.userAUserDTO(user);
         return CustomResponseBuilder.getInstance().crearResponse(userDTO);

@@ -6,7 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Data
-//@Builder
+@Builder
 public class Role implements Serializable {
     private Long id;
     private RoleEnum roleEnum;

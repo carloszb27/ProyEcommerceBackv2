@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Hidden
 @RestControllerAdvice
-public class RestResponseEntityExceptionHandler /*extends ResponseEntityExceptionHandler*/ {
+public class RestResponseEntityExceptionHandler {
 
     @ExceptionHandler({DataIntegrityViolationException.class, IllegalArgumentException.class, ValidationException.class, ConstraintViolationException.class})
     public ResponseEntity<?> handleDataIntegrity(RuntimeException e/*, WebRequest webRequest*/) {

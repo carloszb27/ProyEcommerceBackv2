@@ -26,30 +26,35 @@ public class SupplierController {
 
     @GetMapping("")
     public ResponseEntity<?> listadoSuppliers(){
+        log.info("GET: supplier {}");
         List<SupplierDTO> listaDTO = SupplierMapper.instancia.listaSupplierAListaSupplierDTO(supplierService.listarSuppliers());
         return CustomResponseBuilder.getInstance().crearResponse(listaDTO);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listarSupplierPorId(@PathVariable Long id){
+        log.info("GET: supplier {}", id);
         SupplierDTO supplierDTO = SupplierMapper.instancia.supplierASupplierDTO(supplierService.listarSupplierPorId(id));
         return CustomResponseBuilder.getInstance().crearResponse(supplierDTO);
     }
 
     @PostMapping("")
     public ResponseEntity<?> registrarSupplier(@Valid @RequestBody SupplierCreateDTO supplier){
+        log.info("POST: supplier {}", supplier.nombre());
         SupplierDTO supplierDTO = SupplierMapper.instancia.supplierASupplierDTO(supplierService.registrarSupplier(SupplierMapper.instancia.supplierCreateDTOASupplier(supplier)));
         return CustomResponseBuilder.getInstance().crearResponse(supplierDTO, true, supplierDTO.id());
     }
 
     @PutMapping("")
     public ResponseEntity<?> actualizarSupplier(@Valid @RequestBody SupplierUpdateDTO supplier){
+        log.info("PUT: supplier {}", supplier.id());
         SupplierDTO supplierDTO = SupplierMapper.instancia.supplierASupplierDTO(supplierService.actualizarSupplier(SupplierMapper.instancia.supplierUpdateDTOASupplier(supplier)));
         return CustomResponseBuilder.getInstance().crearResponse(supplierDTO);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarSupplier(@PathVariable Long id){
+        log.info("DELETE: supplier {}", id);
         String mensaje = supplierService.eliminarSupplier(id);
         return CustomResponseBuilder.getInstance().crearResponse(mensaje);
     }
