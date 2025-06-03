@@ -13,7 +13,7 @@ spring:
       enabled: ALWAYS
 
 server:
-  port: 8083
+  port: ${SERVER_PORT}
   servlet:
     context-path: /api/v2
 
